@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SmartWasteMonitoringSystem.MainPage"
+    Title="Smart Waste Monitoring System">
+
+    <VerticalStackLayout Padding="20" Spacing="18">
+        <Label Text="Smart Waste Monitoring System"
+           FontSize="24" FontAttributes="Bold"
+           HorizontalOptions="Center" />
+        <Button Text="Dashboard" Clicked="GoToDashboard" />
+        <Button Text="Alerts" Clicked="GoToAlerts" />
+        <Button Text="Reports" Clicked="GoToReports" />
+    </VerticalStackLayout>
+</ContentPage>

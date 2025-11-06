@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SmartWasteMonitoringSystem.DashboardPage"
+    Title="Dashboard">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <Label Text="Bins (SQLite)" FontAttributes="Bold"/>
+
+        <HorizontalStackLayout Spacing="8">
+            <Button Text="Seed Demo Bins" Clicked="SeedBins"/>
+            <Button Text="Refresh" Clicked="RefreshBins"/>
+        </HorizontalStackLayout>
+
+        <CollectionView x:Name="BinsList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto" Padding="6">
+                        <Label Grid.Column="0" Text="{Binding LocationName}" />
+                        <Label Grid.Column="1" Text="{Binding Status}" HorizontalOptions="End"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
