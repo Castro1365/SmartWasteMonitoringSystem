@@ -7,11 +7,11 @@ on:
     branches: [ "master", "main" ]
 
 jobs:
-  build-and-test:
+  build-android:
     runs-on: windows-latest
 
     steps:
-      # 1. Checkout: get the code
+      # 1. Checkout source code
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -21,18 +21,26 @@ jobs:
         with:
           dotnet-version: "9.0.x"
 
-      # 3. Install only the MAUI Android workload
+      # 3. Install MAUI Android workload
       - name: Install MAUI Android workload
         run: dotnet workload install maui-android
 
-      # 4. Restore: only the Android target of your MAUI project
-      - name: Restore dependencies (Android only)
-        run: dotnet restore SmartWasteMonitoringSystem/SmartWasteMonitoringSystem/SmartWasteMonitoringSystem.csproj -f net9.0-android
+      # 4. Restore all NuGet dependencies for the solution
+      - name: Restore solution
+        run: dotnet restore SmartWasteMonitoringSystem.sln
 
-      # 5. Build: Android target in Release mode
-      - name: Build Android target in Release
+      # 5. Build ONLY the Android target of the MAUI project in Release
+      - name: Build Android target (Release)
         run: dotnet build SmartWasteMonitoringSystem/SmartWasteMonitoringSystem/SmartWasteMonitoringSystem.csproj -c Release -f net9.0-android --no-restore
 
-      # 6. Test step (will succeed even if there are no test projects)
+      # 6. Run tests if any exist; otherwise skip without failing the job
       - name: Run tests (if any)
-        run: dotnet test || echo "No test projects found"
+        shell: pwsh
+        run: |
+          $testProjects = Get-ChildItem -Recurse -Filter "*Tests.csproj"
+          if ($testProjects.Count -gt 0) {
+            dotnet test --configuration Release --no-build
+          }
+          else {
+            Write-Host "No test projects found - skipping tests."
+          }
