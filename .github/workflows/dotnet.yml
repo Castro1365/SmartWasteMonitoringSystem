@@ -29,9 +29,13 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore SmartWasteMonitoringSystem.sln
 
-      # 5. Build the solution in Release mode
+           # 5. Build only the Android target of the MAUI project in Release mode
       - name: Build
-        run: dotnet build SmartWasteMonitoringSystem.sln --configuration Release --no-restore
+        run: dotnet build SmartWasteMonitoringSystem/SmartWasteMonitoringSystem/SmartWasteMonitoringSystem.csproj ^
+             -c Release ^
+             -f net9.0-android ^
+             --no-restore
+
 
       # 6. Run tests (will pass even if you have 0 tests)
       - name: Test
