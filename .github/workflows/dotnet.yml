@@ -1,34 +1,38 @@
-name: .NET CI
+name: .NET MAUI CI
 
 on:
   push:
-    branches: [ "master", "main" ]   # runs on push to master or main
+    branches: [ "master", "main" ]
   pull_request:
-    branches: [ "master", "main" ]   # also on PRs to master/main
+    branches: [ "master", "main" ]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      # 1. Checkout: get the source code from your repo
+      # 1. Get the source code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Setup .NET SDK
+      # 2. Install .NET SDK (your project is net9.0-android)
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.0.x"    # change to "9.0.x" if your project uses .NET 9
+          dotnet-version: "9.0.x"
 
-      # 3. Restore: restore all NuGet packages
+      # 3. Install required MAUI workloads (fixes NETSDK1147)
+      - name: Install MAUI workloads
+        run: dotnet workload install maui-android
+
+      # 4. Restore NuGet packages
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore SmartWasteMonitoringSystem.sln
 
-      # 4. Build: build the whole solution in Release mode
+      # 5. Build the solution in Release mode
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build SmartWasteMonitoringSystem.sln --configuration Release --no-restore
 
-      # 5. Test: run all tests; job will fail if any test fails
+      # 6. Run tests (will pass even if you have 0 tests)
       - name: Test
-        run: dotnet test --configuration Release --no-build --verbosity normal
+        run: dotnet test SmartWasteMonitoringSystem.sln --configuration Release --no-build --verbosity normal
