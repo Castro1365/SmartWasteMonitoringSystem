@@ -131,7 +131,7 @@ This screen appears the first time the user opens the app.
 They must create a 4-digit PIN before accessing the dashboard.
 
 ```bash
-/Images/pin_setup.png
+/Images/Pin setup page.png
 ```
 
 #### 2. PIN Unlock Page
@@ -139,16 +139,24 @@ They must create a 4-digit PIN before accessing the dashboard.
 On future launches, the user must enter the saved PIN to unlock the application.
 
 ```bash
-/Images/pin_unlock.png
+SmartWasteMonitoringSystem/Pin unlock page.png
 ```
 
-#### 3. Dashboard
+#### 3. Home Page
+
+This is the main navigation screen users see after entering their PIN.  
+It provides access to the Dashboard, Alerts, and Reports.
+```bash
+SmartWasteMonitoringSystem/Home page.png
+```
+
+#### 4. Dashboard Page
 
 After unlocking, the dashboard displays a list of bins stored in the SQLite database.
 
 Each bin shows its name and status.
 ```bash
-/Images/dashboard.png
+SmartWasteMonitoringSystem/Dashboard page.png
 ```
 
 ----
