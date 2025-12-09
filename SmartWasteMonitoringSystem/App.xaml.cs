@@ -1,4 +1,6 @@
-﻿namespace SmartWasteMonitoringSystem;
+﻿using System.IO;
+
+namespace SmartWasteMonitoringSystem;
 
 public partial class App : Application
 {
@@ -10,10 +12,8 @@ public partial class App : Application
 
         var dbPath = Path.Combine(FileSystem.AppDataDirectory, "smartbin.db3");
         Repo = new AppRepository(dbPath);
-    }
 
-    protected override Window CreateWindow(IActivationState? activationState)
-    {
-        return new Window(new NavigationPage(new MainPage()));
+        // Start at PIN screen
+        MainPage = new PinPage();
     }
 }

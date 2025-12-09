@@ -5,23 +5,62 @@
     x:Class="SmartWasteMonitoringSystem.DashboardPage"
     Title="Dashboard">
 
-    <VerticalStackLayout Padding="20" Spacing="10">
-        <Label Text="Bins (SQLite)" FontAttributes="Bold"/>
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="20">
 
-        <HorizontalStackLayout Spacing="8">
-            <Button Text="Seed Demo Bins" Clicked="SeedBins"/>
-            <Button Text="Refresh" Clicked="RefreshBins"/>
+        <!-- Title -->
+        <Label Text="Smart Bin Dashboard (SQLite)"
+               FontAttributes="Bold"
+               FontSize="18"
+               HorizontalOptions="Center"
+               Grid.Row="0" />
+
+        <!-- Buttons -->
+        <HorizontalStackLayout Grid.Row="1"
+                               Spacing="8"
+                               HorizontalOptions="Center">
+            <Button Text="Seed Demo Bins" Clicked="SeedBins" />
+            <Button Text="Clear All" Clicked="ClearAll" />
+            <Button Text="Refresh" Clicked="RefreshBins" />
         </HorizontalStackLayout>
 
-        <CollectionView x:Name="BinsList">
+        <!-- Row counter -->
+        <Label x:Name="CountLabel"
+               Text="Rows in DB: 0"
+               FontAttributes="Italic"
+               Margin="0,8,0,0"
+               TextColor="Gray"
+               HorizontalOptions="Center"
+               Grid.Row="2" />
+
+        <!-- Bin list -->
+        <CollectionView x:Name="BinsList"
+                        Grid.Row="3">
+            <CollectionView.EmptyView>
+                <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="No bins available."
+                           TextColor="Gray"
+                           FontAttributes="Italic" />
+                </Grid>
+            </CollectionView.EmptyView>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid ColumnDefinitions="*,Auto" Padding="6">
-                        <Label Grid.Column="0" Text="{Binding LocationName}" />
-                        <Label Grid.Column="1" Text="{Binding Status}" HorizontalOptions="End"/>
-                    </Grid>
+                    <Border Stroke="#cccccc"
+                            StrokeShape="RoundRectangle 8"
+                            Margin="4"
+                            Padding="6">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0"
+                                   Text="{Binding LocationName}"
+                                   FontAttributes="Bold" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding Status}"
+                                   HorizontalOptions="End" />
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </VerticalStackLayout>
+
+    </Grid>
 </ContentPage>
