@@ -161,6 +161,40 @@ SmartWasteMonitoringSystem/Dashboard page.png
 
 ----
 
+### Automated Testing (MSTest)
+
+The project includes an automated test project named
+```bash
+SmartWasteMonitoringSystem.Tests
+```
+These tests verify that the app’s security feature (PIN hashing and verification) behaves correctly.
+
+#### 1. What is tested?
+
+- Hashing always produces a non-empty value
+
+- Hashing the same PIN produces the same result
+
+- VerifyPassword() returns true for the correct PIN
+
+- VerifyPassword() returns false for the incorrect PINs
+
+#### 2. Test Results
+
+All tests pass successfully (4 tests total):
+```bash
+- Hash_GivesSameResult_ForSameInput
+
+- Hash_IsNotEmpty
+
+- Verify_ReturnsTrue_ForCorrectPin
+
+- Verify_ReturnsFalse_ForWrongPin
+```
+These tests help ensure that the authentication logic remains reliable as the app evolves.
+
+----
+
 ### About the Project
 
 This application was created by Castro Fokou and Rupesh Nepal as part of our semester-long capstone project.
